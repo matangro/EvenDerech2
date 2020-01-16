@@ -7,7 +7,7 @@
 
 
 State<Point>* BestSearcherMetrix::search(Searchable <Point>* problem) {
-    auto cmp = [](State<Point>* left, State<Point>* right) { return left->getCost()-right->getCost(); };
+    auto cmp = [](State<Point>* left, State<Point>* right) { return left->getCost()>right->getCost(); };
     std::priority_queue<State<Point>*,std::vector<State<Point>*>,decltype(cmp)> priorityQueue(cmp);
     State<Point>* temp = problem->getInisialState();
     problem->MarkVisit(temp);
@@ -20,7 +20,7 @@ State<Point>* BestSearcherMetrix::search(Searchable <Point>* problem) {
             return temp;
         } else{
             auto list = problem->getAllPossibleState(temp);
-            for(auto c: *list){
+            for (auto c: *list){
                 if(!problem->didWeVisit(c)){
                     problem->MarkVisit(c);
                     priorityQueue.push(c);
